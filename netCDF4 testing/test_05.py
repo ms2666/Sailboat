@@ -17,24 +17,12 @@ y = fh.variables['v']
 lons = fh.variables['lon'][:]
 lats = fh.variables['lat'][:]
 tmax = fh.variables['time'][:]
+xvals = x[:]
+yvals = y[:]
 
-# fetch some units
-tmax_units = fh.variables['time'].units
-
-# Get some parameters for the Stereographic Projection
-lon_0 = lons.mean()
-lat_0 = lats.mean()
-
-m = Basemap(width=5000000,height=3500000, resolution='l',projection='stere', lat_ts=40,lat_0=lat_0,lon_0=lon_0)
-
-# Because our lon and lat variables are 1D, 
-# use meshgrid to create 2D arrays 
-# Not necessary if coordinates are already in 2D arrays.
-lon, lat = np.meshgrid(lons, lats)
-xi, yi = m(lon, lat)
-
-
-print tmax
+# print only valid values
+print fh.variables['u'][3].compressed()
+print fh.variables['u'][2].compressed()
 
 # close the dataset
 fh.close()
