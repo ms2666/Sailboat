@@ -1,0 +1,177 @@
+WHAT'S NEW: See 'HISTORY' below for most recent update information.
+
+NOTE 1: Frequently-Asked-Questions.txt provides more info.
+
+NOTE 2: See http://www.ncdc.noaa.gov/oa/rsad/blendedseawinds.html 
+	for more on data access methods, registration to receive notices
+	on product updates, etc.
+
+SUMMARY: Blended vector sea surface winds (at 10-m above sea level) and 
+	surface windstresses (stresses felt by the water). The wind speeds
+	are blended from multiple satellites [up to six, including 
+	Scatterameters (QuikSCAT), SSMIs, TMI and AMSR-E] observations, 
+	on a global 0.25-degree grid and time resolution of 6-hourly, as 
+	four 'instantaneous' global snapshots per day at UTC/GMT 00, 06,
+	12 and 18Z. The blended speeds are then decomposed into (u,v) 
+	components using the NCEP Re-analysis 2 (NRA-2) wind directions 
+	interpolated onto the blended speed grid. The 6-hourly (u,v) 
+	instantaneous fields are provided at our data site, and the speed
+	itself can be simply computed as w=(u^2+v^2)^0.5, which is exactly 
+	the blended speed from the multiple satellites.
+	
+	Daily fields are also provided as simple avearges in time of the 
+	6-hourly data, and monthly fields are provided as averages of the 
+	daily fields. Because the vector means do not exactly equal to the 
+	scalar/speed means, the scalar means are thus also provided in the
+	daily and monthly datasets, as (u,v,w). The scalar/speed means 
+	correspond to the means of the blended speed from mutiple satellite
+	speed observations, and may be useful for wind energy indistries 
+	as an example. The vector means can be computed as the magnitude of 
+	the mean u and v, and may be useful for oceanographers as an example.
+	
+	Computations for the wind stresses follow the same methodology. 
+	Particularly in this version, the 6-hourly satellite-scaled global 
+	0.25-degree grid wind stresses are computed as:
+	   	taux_s = -[(w_s/w_m)**2]*taux_m
+   		tauy_s = -[(w_s/w_m)**2]*tauy_m 
+	where '_s' indicates satellite-scaled values and '_m' indicates 
+	NRA-2 model values interpolated to the satellite grid. Wind speeds
+	are at the time stamps and taux/y are 6-hour averages starting from
+	the time stamps.
+	 
+	The satellite wind speed blending scheme is a Gaussian like 3-D 
+	(in x,y,t) interpolation. To reduce the data gaps for the early years
+	(when fewer satellite were available) and to reduce aliases for the
+	instantaneous fields for the later years (when more satellites are 
+	availabe), the time window and spatial radiaus are chosen as 
+	+/- 6 hours and 62.5 km, respectively. Sampling feasibility study can
+	be found at http://www.agu.org/pubs/crossref/2006/2006GL027086.shtml
+
+	Products are available from 09 July 1987 - present. The 6-hourly 4 
+	snapshots per day are at UTC 00, 06, 12 and 18Z. The center time of the
+	daily averages is thus UTC 09Z. The grid cells are: 
+	lon=0.0:0.25:359.75 (im=1440)
+        lat=-89.75:0.25:89.75 (jm=719)
+
+Note: If you have trouble getting the data, the following scripts may help: 
+By lftp - see ftp://eclipse.ncdc.noaa.gov/raid1c/seawinds/SI/my_lftp.sh
+By wget (with constraints for subsetting) 
+	- see ftp://eclipse.ncdc.noaa.gov/raid1c/seawinds/SI/my_wget.sh
+	
+********************************
+DATA DIRECTORY STRUCTURE:
+
+./seawinds/SI/ contains topographic data & reading program (<0 below sea level).
+
+Subdirectories ./uv/ and ./stress/ under ./seawinds/SI/ contains the 
+vector winds and windstress, respectively:
+
+---------------
+./uv/ 			contains the vector winds, with sub-directories for 
+			different time resolutions of 
+    ./uv/6hrly/ [6-hourly, 4 global snapshots (u,v) at UTC 00, 06, 12 and 18Z]
+    ./uv/daily/  [averages of the above 4 time points, thus with a center time 09Z;
+    		  also provided is the scalar mean, (u,v,w)]
+    ./uv/monthly/ [averages of the above daily data; also provided is the 
+    			scalar mean, (u,v,w)]
+    ./uv/clm/ [climatological monthlies; also provided is the 
+    			scalar mean, (u,v,w)]
+			
+	         For each of the time resolutions, there are two subdirectories 
+		 that contains data in netCDF and IEEE - big endian, such as:
+   ./uv/6hrly/netcdf/
+   ./uv/6hrly/ieee/	(same for the ./daily/ and ./monthly/ datasets)
+	
+		Then under each data format-subdirectory, the data are organized by 
+		decades for the 6-hourly and daily data, such as
+   ./uv/6hrly/netcdf/1980s/
+   ./uv/6hrly/netcdf/1990s/
+   ./uv/6hrly/netcdf/2000s/	(same for the ./ieee/ data)
+   
+    		The data file names are in the formats of
+		uvYYYYMMDD.nc (or .be) for the 6-hourly and daily data, and 
+		uvYYYYMM.nc (or .be) for the monthly data. 
+		
+		Support reading routines are included in the time-resolution
+		subdirectories [read*.f (FORTRAN), read*.m (MATLAB), W*.gs (GrADS), etc],
+		with verification data in text (verify_SI_uv_6hrly.txt, etc); 
+		these files are self-explaining.
+			
+./stress/ has the same sub-dir structures as ./uv/.
+			
+
+ ****************************
+ Please Note: For better sevice to data users, please register to our user list 
+ (email to huai-min.zhang@noaa.gov) so that we can update you on new development.
+ We also ask you to acknowledge us in your use of the data to help us justify 
+ continued service. This may be done by  including text such as: 
+ The wind data are acquired from NOAA's National Climatic Data Center, via their 
+ website http://www.ncdc.noaa.gov/oa/rsad/blendedseawinds.html.
+ We would also appreciate receiving a copy of the relevant publication. 
+ 
+These are research products and thus are considered as experimental in nature.
+*****************************
+     CONTACTS for seawinds: 
+              Huai-Min.Zhang@noaa.gov (e-mail)
+              Phone: (+1) 828-271-4090
+	      	or
+	      ncdc.satorder@noaa.gov
+	      Phone: (+1) 828-271-4800
+
+
+*****************************
+Updated 3 July 2007
+
+*****************************
+HISTORY - reverse chronically:
+
+Addition of Near-Real-Time (NRT) Product (1 March 2008):
+A version of NRT (about 1-day delay) Blended Sea Winds is produced quasi-daily at the 
+requests of some users. Automatic daily updates run for most days; however, this is not
+a 24/7 operation service, and updates are deplayed occasionally due to machine maintenance
+downtime, etc. The NRT vector winds are blended from the NRT satellite wind speed retrievals
+from the Remote Sensing System (RSS) and wind directions from the ECMWF NWP forecast 
+(ftp://eclipse.ncdc.noaa.gov/raid1b/surfa). The NRT data are replaced by the delayed-mode 
+research quality data (Version 1.2) on monthly basis. The data archive locations are the 
+same for the NRT and Reserach Quality (Ver 1.2), with the name conventions
+uv20080101rt.nc (rt = near-real-time) and uv20080101.nc, respectively.
+
+
+Version 1.2 (July 2007):
+The wind speeds/magnitudes are the same as Version 1.1 (blended only from satllite data).
+However, wind directions are shifted by 6-hours in time in the NRA-2 renalysis fields, 
+thus affects the decompositions of wind speeds into the u-v components. It was found that
+the 'time stamps' in the NRA-2 output files are not for the fields themselves, but they 
+are the forecast starting time, or as the 'reference times'. The output fields themselves
+are 6-hour forecasts valid for the times 6-hours after the 'reference times' for winds etc
+and 6-hour averages for flux fields. These are taken into account in this new version 
+(Version 1.2) of the blended fields, and are valid as 'instantaneous' snapshots at the 
+time 'stamps' imbedded in the netCDF files for the wind speeds and u-v components.
+
+Version 1.1 (April 2007):
+1) This version used the individual satellite retrievals from the Remote Sensing System,
+Inc (http://www.remss.com/) that were released in September 2006. 
+
+2) Vector winds and windstresses are provided in this version, with the wind speed from
+blending the multiple satellite observations and wind direction from the NCEP 
+Reanalysis-2 interpolated to the blended satellite speed grid. 
+
+3) To save storage space, the 6-hourly (4 instantaneous global snapshots per day) data 
+only contain the (u,v) components, since the speed/magnitude can be computed as 
+sqrt(u^2+v^2) for the instantaneous field, which is exactly the blended speed from the 
+multiple satellites. However, for the (daiyly/monthly) mean speed, there are commonly 
+two ways to compute the means, as vector mean or scalar mean, and they generally do not
+equal to each other. For comparison purpose, the scalar mean speed (w) is also provided
+together with means of the (u,v) components in the daily and monthly mean fields [i.e. 
+as (u,v,w) or (taux,tauy,tau)]. The scalar means correspond to the means of blended 
+satellite wind speed.
+
+
+Version 1.0 (August 2006):
+This version used the individual satellite retrievals from the Remote Sensing System,
+Inc (http://www.remss.com/) before their major updates in September 2006. Also, only 
+wind speed data were provided for the 6-hourly, daily and monthly resolutions. This 
+version was moved offsite and can be obtained by the above 'CONTACTS'.
+
+(Note versioned - 12-hourly or lower resolution, 2005)
+
