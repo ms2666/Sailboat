@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 # read a a specific netCDF file
-my_example_nc_file = '/Users/mukundsudarshan/Documents/SampleData/uv20150106rt.nc'
+my_example_nc_file = "/Users/mukundsudarshan/Documents/SampleData/uv20150106rt.nc"
 # create a netCDF4.Dataset object
 fh = Dataset(my_example_nc_file, mode='r')
 
@@ -20,6 +20,8 @@ tmax = fh.variables['time'][:]
 # fetch some units
 tmax_units = fh.variables['time'].units
 
-print lats
+# try to associate coordinates with vectors
+print x
 
+# close the dataset
 fh.close()
