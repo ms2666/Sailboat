@@ -21,8 +21,11 @@ xvals = x[:]
 yvals = y[:]
 
 # print only valid values
-print fh.variables['u'][3].compressed()
-print fh.variables['u'][2].compressed()
+print x[3].compressed()
+print x[2].compressed()
+
+print x[3][0]
+print fh
 
 # close the dataset
 fh.close()
