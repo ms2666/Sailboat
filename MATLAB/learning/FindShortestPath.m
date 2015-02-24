@@ -1,5 +1,5 @@
 % bounding box for the atlantic ocean
-step_size = 1;
+step_size = 25;
 bounds = round([-83.2,13.3,2.4,64.7]);
 [coordinates, n] = genCoord(bounds, step_size);
 
@@ -7,6 +7,8 @@ bounds = round([-83.2,13.3,2.4,64.7]);
 nodeList = (1:n)';
 nodeMatrix = [nodeList coordinates];
 adjMat = adj_matrix(nodeMatrix);
+sparseAdjMat = sparse(adjMat);
+[dist, path, ~] = graphshortestpath(sparseAdjMat, 1, 193, 'Method', 'Dijkstra');
 
 % generate labels for nodes
 labels = cellstr(num2str(nodeList));
@@ -22,10 +24,6 @@ for r = 1:n
         end
     end
 end
-
-sparseAdjMat = sparse(adjMat);
-
-[dist, path, ~] = graphshortestpath(sparseAdjMat, 1, 193, 'Method', 'Dijkstra');
 
 for i = 1:(size(path, 2)-1)
     X = [nodeMatrix(path(i), 2) nodeMatrix(path(i+1), 2)];
