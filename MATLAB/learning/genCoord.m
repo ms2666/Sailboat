@@ -13,11 +13,11 @@ Ys = bounds(2):step_size:bounds(4);
 
 % Horizontal grid 
 for k = 1:length(Ys)
-  line([Xs(1) Xs(end)], [Ys(k) Ys(k)])
+  plot([Xs(1) Xs(end)], [Ys(k) Ys(k)], 'k-', 'LineWidth', 1)
 end
 % Vertical grid
 for k = 1:length(Xs)
-  line([Xs(k) Xs(k)], [Ys(1) Ys(end)])
+  plot([Xs(k) Xs(k)], [Ys(1) Ys(end)], 'k-', 'LineWidth', 1)
 end
 
 [~, xLen] = size(Xs);
