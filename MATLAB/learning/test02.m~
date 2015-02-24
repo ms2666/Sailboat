@@ -1,23 +1,21 @@
 % bounding box for the atlantic ocean
 step_size = 10;
-minX = -83; max
-Xs = -83:step_size:01;
-Ys = 9:step_size:59;
-clear step_size;
-[~, xLen] = size(Xs);
-[~, yLen] = size(Ys);
+bounds = round([-83.2,13.3,2.4,64.7]);
 
 
-% generate coordinates based on bounding box
-[p,q] = meshgrid(Xs, Ys);
-coordinates = [p(:) q(:)];
-% clear p; clear q;
 
 scatter(coordinates(:,1), coordinates(:,2))
 axis square
 
-
 % create set of nodes
 n = xLen * yLen;
-adjMat = zeros(n, n);
+nodeList = (1:n)';
+nodeMatrix = [nodeList coordinates];
+adjMat = adj_matrix(nodeMatrix);
 
+hold off
+
+p = rand(10,2);
+labels = cellstr( num2str((1:n)') );  %' # labels correspond to their order
+scatter(coordinates(:,1), coordinates(:,2))
+text(coordinates(:,1), coordinates(:,2), labels, 'VerticalAlignment','bottom','HorizontalAlignment','right')
