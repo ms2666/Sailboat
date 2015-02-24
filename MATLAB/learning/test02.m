@@ -1,20 +1,34 @@
 % bounding box for the atlantic ocean
-step_size = 15;
+step_size = 1;
 bounds = round([-83.2,13.3,2.4,64.7]);
-
 [coordinates, n] = genCoord(bounds, step_size);
 
-scatter(coordinates(:,1), coordinates(:,2))
-axis square
-
-% create set of nodes
+% create adjacency matrix
 nodeList = (1:n)';
 nodeMatrix = [nodeList coordinates];
 adjMat = adj_matrix(nodeMatrix);
 
-hold off
-
-p = rand(10,2);
-labels = cellstr( num2str((1:n)') );  %' # labels correspond to their order
+% generate labels for nodes
+labels = cellstr(num2str(nodeList));
 scatter(coordinates(:,1), coordinates(:,2))
 text(coordinates(:,1), coordinates(:,2), labels, 'VerticalAlignment','bottom','HorizontalAlignment','right')
+hold on
+for r = 1:n
+    for c = r:n
+        if adjMat(r, c) ~= 0 || adjMat(c, r) ~= 0
+            X = [nodeMatrix(c, 2) nodeMatrix(r, 2)];
+            Y = [nodeMatrix(c, 3) nodeMatrix(r, 3)];
+            plot(X,Y, 'k-', 'LineWidth', 1);
+        end
+    end
+end
+
+sparseAdjMat = sparse(adjMat);
+
+[dist, path, ~] = graphshortestpath(sparseAdjMat, 1, 193, 'Method', 'Dijkstra');
+
+for i = 1:(size(path, 2)-1)
+    X = [nodeMatrix(path(i), 2) nodeMatrix(path(i+1), 2)];
+    Y = [nodeMatrix(path(i), 3) nodeMatrix(path(i+1), 3)];
+    plot(X,Y, 'r-', 'LineWidth', 2);
+end

@@ -6,4 +6,3 @@ temp = full(DG);
 DG = sparse(temp + temp');
 % calculate shortest path
 [dist, path, ~] = graphshortestpath(DG, 1, 6, 'Method', 'Dijkstra');
-
