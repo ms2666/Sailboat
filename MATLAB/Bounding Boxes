@@ -1,0 +1,10 @@
+Cayuga Lake:
+	CSV:		-76.769638,42.459371,-76.500269,42.945319
+
+Atlantic Ocean:
+	CSV:		-83.2,-83.0,20.0,68.6
+	Rounded CSV:	-83,-83,20,69
+
+North Atlantic Ocean:
+	CSV:		-83.2,22.0,0.3,58.8
+	Rounded CSV:	-83.2,13.3,2.4,64.7
