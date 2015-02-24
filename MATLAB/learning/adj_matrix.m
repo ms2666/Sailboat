@@ -3,32 +3,45 @@ function [ adjMatrix ] = adj_matrix(nodeMatrix)
 %   column 1 is the node number
 %   column 2 is the x value of the node
 %   column 3 is the y value of the node
-% function returns an adjacency matrix
+% This function returns an (upper triangular) adjacency matrix.
+%   adjMatrix(a,b) == 1 if nodes a and b are adjacent, 0 if not
+%   A node is considered ajdacent to itself.
+%   Diagonal nodes are also adjacent.
 
-% stepSize = space between two adjacent nodes
-% calculated using two nodes known to be adjacent -- nodes 1 and 2
-stepSize = abs(nodeMatrix(1,3) - nodeMatrix(2,3));  
+
+%stepSize = space between two adjacent nodes
+%calculated using two nodes known to be adjacent -- nodes 1 and 2
+%assumes nodes 1 and 2 are in the same column (same x, different y val)
+stepSize = abs(nodeMatrix(1,3) - nodeMatrix(2,3));
 
 numNodes = size(nodeMatrix, 1);          % number of nodes (rows of nodeArray)
 adjMatrix = zeros(numNodes,numNodes);    % generate adjacency matrix of zeros
 
 for r=1:numNodes
-    adjMatrix(r,r) = 0;   % a node is considered ajdacent to itself
     
     for c=r:numNodes
         
-%         if adjacent, put 1 in adjacent matrix
-        if (nodeMatrix(r,2) == nodeMatrix(c,2) && abs(nodeMatrix(r,3) - nodeMatrix(c,3)) == stepSize)
-%             same x value, adjacent y
-            adjMatrix(r,c) = calculateWeight(nodeMatrix, r, c);
-%             adjMatrix(c,r) = 1;
-        elseif (nodeMatrix(r,3) == nodeMatrix(c,3) && abs(nodeMatrix(r,2) - nodeMatrix(c,2)) == stepSize) 
-%             same y value, adjacent x
-            adjMatrix(r,c) = calculateWeight(nodeMatrix, r, c);
-%             adjMatrix(c,r) = 1;
+        % adjacent if same x value, y value one step away (above/below)
+        if (nodeMatrix(r,2) == nodeMatrix(c,2) && ...
+                abs(nodeMatrix(r,3) - nodeMatrix(c,3)) == stepSize)
+            adjMatrix(r,c) = calculateWeight(nodeMatrix,r,c);
+            
+            % adjacent if same y value, x value one step away (left/right)
+        elseif (nodeMatrix(r,3) == nodeMatrix(c,3) && ...
+                abs(nodeMatrix(r,2) - nodeMatrix(c,2)) == stepSize)
+            adjMatrix(r,c) = calculateWeight(nodeMatrix,r,c);
+            
+            % adjacent if both x and y value one step away (diagonal)
+        elseif ((abs(nodeMatrix(r,3) - nodeMatrix(c,3)) == stepSize) && ...
+                (abs(nodeMatrix(r,2) - nodeMatrix(c,2)) == stepSize))
+            adjMatrix(r,c) = sqrt(2) * calculateWeight(nodeMatrix,r,c);
         end
         
+        
     end
-end 
+end
 
 end
+
+
+

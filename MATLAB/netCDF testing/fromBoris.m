@@ -13,10 +13,13 @@ function fromBoris(filename)
     lonBndInd=find(flowData.lon>=(flowData.lon(1)+360),1,'first')-1;
     flowData.lon=[flowData.lon(eastBndInd:lonBndInd)-360; flowData.lon(1:eastBndInd-1)];
     
-    [x,y]=meshgrid(flowData.lon,fliplr(flowData.lat));
+    [x,y]=meshgrid(flowData.lon,(flowData.lat));
     
-    u=[flowData.u(eastBndInd:lonBndInd,:,1,1); flowData.u(1:eastBndInd-1,:,1,1)];
-    v=[flowData.v(eastBndInd:lonBndInd,:,1,1); flowData.v(1:eastBndInd-1,:,1,1)];
+%     u=[flowData.u(eastBndInd:lonBndInd,:,1,1); flowData.u(1:eastBndInd-1,:,1,1)];
+%     v=[flowData.v(eastBndInd:lonBndInd,:,1,1); flowData.v(1:eastBndInd-1,:,1,1)];
+    
+    u = flowData.u(:,:,1,1);
+    v = flowData.v(:,:,1,1);
     
     u(find(isnan(u)))=0;
     v(find(isnan(v)))=0;
