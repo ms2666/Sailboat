@@ -9,7 +9,7 @@ Paris = [48.9, 2.3];
 Algiers = [36.8, 3.2];
 
 % bounding box for the atlantic ocean
-step_size = 1;
+step_size = 3;
 bounds = round([-83.2,13.3,2.4,64.7]);
 [coordinates, n] = genCoord(bounds, step_size);
 
@@ -26,5 +26,5 @@ text(coordinates(:,1), coordinates(:,2), labels, 'VerticalAlignment','bottom','H
 
 
 % graph path(s) and draw map
-[a, b] = getNodes(NewYorkCity, Algiers, nodeMatrix);
+[a, b] = getNodes(NewYorkCity, London, nodeMatrix);
 path = graphPath(nodeMatrix, a, b);
