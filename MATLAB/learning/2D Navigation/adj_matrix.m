@@ -32,16 +32,16 @@ for r=1:numNodes
             adjMatrix(r,c) = calculateWeight(nodeMatrix,r,c);
             
             % adjacent if both x and y value one step away (diagonal)
-        elseif ((abs(nodeMatrix(r,3) - nodeMatrix(c,3)) == stepSize) && ...
-                (abs(nodeMatrix(r,2) - nodeMatrix(c,2)) == stepSize))
+            %         elseif ((abs(nodeMatrix(r,3) - nodeMatrix(c,3)) == stepSize) && ...
+            %                 (abs(nodeMatrix(r,2) - nodeMatrix(c,2)) == stepSize))
+            %             adjMatrix(r,c) = calculateWeight(nodeMatrix,r,c);
+            
+            %         try this one
+        elseif ((abs(nodeMatrix(r,3) - nodeMatrix(c,3)) == stepSize) || (abs(nodeMatrix(r,3) - nodeMatrix(c,3)) == 2*stepSize) && ...
+                (abs(nodeMatrix(r,2) - nodeMatrix(c,2)) == stepSize) || (abs(nodeMatrix(r,2) - nodeMatrix(c,2)) == 2*stepSize))
             adjMatrix(r,c) = calculateWeight(nodeMatrix,r,c);
         end
-        
-        
     end
 end
 
 end
-
-
-
