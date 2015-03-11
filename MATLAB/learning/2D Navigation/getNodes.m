@@ -21,6 +21,6 @@ for i = 1:size(nodeMatrix, 1)
     if (nodeMatrix(i, 2) == Xs(1)) && (nodeMatrix(i, 3) == Ys(1))
         finalS = i;
     end
-    
+end
     
 end
