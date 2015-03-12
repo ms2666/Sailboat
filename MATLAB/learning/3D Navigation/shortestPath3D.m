@@ -1,5 +1,6 @@
 %% Draw a globe
 drawGlobe()
+% global x
 
 %% Parameters for program
 % some cities
@@ -15,7 +16,7 @@ Houston = [31.0, -100];
 resolution = 5;
 
 % bounding box for the atlantic ocean
-bounds = round([-100,22.0,0.3,58.8]);
+bounds = round([-100,10,0.3,58.8]);
 
 
 %% Calculate and plot shortest path

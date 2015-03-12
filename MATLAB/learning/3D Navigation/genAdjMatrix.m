@@ -9,6 +9,10 @@ stepSize = 6*resolution;
 % adjusts tolerance. 1.0 is 0% tolerance, 1.1 is 10%, etc
 tolerance = 1.1;
 
+% initialize land here so we dont have to constantly do it
+land = shaperead('landareas','UseGeoCoords',true);
+rivers = shaperead('worldrivers','UseGeoCoords',true);
+
 for r=1:numNodes
     rLat = nodeMatrix(r, 2);
     rLon = nodeMatrix(r, 3);
@@ -20,7 +24,7 @@ for r=1:numNodes
         % if the nodes are within step sizes of each other, nodes are
         % connected
         if abs(rLat - cLat) <= stepSize*tolerance && abs(rLon - cLon) <= stepSize*tolerance
-            adjMatrix(r, c) = calculateWeight([rLat rLon], r, [cLat cLon], c, nodeMatrix);
+            adjMatrix(r, c) = calculateWeight([rLat rLon], r, [cLat cLon], c, nodeMatrix, stepSize, land, rivers);
         end
         
     end

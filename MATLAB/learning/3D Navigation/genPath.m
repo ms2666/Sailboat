@@ -2,6 +2,8 @@ function [ path ] = genPath( nodeMatrix, sourceNode, destNode, resolution )
 % adjMat is a sparse matrix, source and destination are nodes (they're just integers)
 
 sparseAdjMat = genAdjMatrix(nodeMatrix, resolution);
+% global x
+% x = sparseAdjMat;
 
 % swap the source and destination if source > destination
 if sourceNode > destNode
