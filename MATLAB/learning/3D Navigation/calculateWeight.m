@@ -5,9 +5,10 @@ lonDiff = p1Coords(2) - p2Coords(2);
 weight = sqrt(lonDiff^2 + latDiff^2);
 
 % if the path from p1 to p2 contains land, increase weight
-if nodeMatrix(p1, 4) || nodeMatrix(p2, 4)
-    weight = weight*weight;
-end
+% if nodeMatrix(p1, 4) || nodeMatrix(p2, 4)
+%     weight = weight^5;
+%     %     weight = 0;
+% end
 
 
 end
