@@ -10,6 +10,7 @@ view(3)
 load topo
 geoshow(topo,topolegend,'DisplayType','texturemap')
 demcmap(topo)
+
 land = shaperead('landareas','UseGeoCoords',true);
 plotm([land.Lat],[land.Lon],'Color','black')
 rivers = shaperead('worldrivers','UseGeoCoords',true);

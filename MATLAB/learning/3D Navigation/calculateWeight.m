@@ -1,8 +1,9 @@
-function [weight] = calculateWeight(nodeMatrix, r, c)
+function [weight] = calculateWeight(p1, p2)
 % just calculate distance for now
-xDiff = nodeMatrix(r, 2) - nodeMatrix(c, 2);
-yDiff = nodeMatrix(r, 3) - nodeMatrix(c, 3);
-weight = sqrt(yDiff^2 + xDiff^2);
+latDiff = p1(1) - p2(1);
+lonDiff = p1(2) - p2(2);
+weight = sqrt(lonDiff^2 + latDiff^2);
 
 % weight = 100000*rand*weight;
+
 end

@@ -1,6 +1,5 @@
-%% Draw a globe
+% Draw a globe
 drawGlobe()
-
 
 %% Parameters for program
 % some cities
@@ -11,17 +10,17 @@ Paris = [48.9, 2.3];
 Algiers = [36.8, 3.2];
 
 % resolution is the number of degrees between each node
-resolution = .5;
+resolution = 3;
 
 % bounding box for the atlantic ocean
-bounds = round([-83.2,22.0,0.3,58.8]);
+bounds = round([-83.2,-83.0,20.0,68.6]);
 
-
-%% Calculate and plot shortest path
+%% Calculate and plot shortest pa
 % get coordinates of each node
 [coordinates, numNodes] = genCoord3D(bounds, resolution);
 % show nodes (decreases performance)
-% showPoints3D(coordinates);
+showPoints3D(coordinates);
+
 
 % create a matrix: [ node_number, node_x, node_y ]
 nodeMatrix = [(1:numNodes)' coordinates];
@@ -30,7 +29,7 @@ nodeMatrix = [(1:numNodes)' coordinates];
 
 [path, b] = genPath(nodeMatrix, sourceNode, destNode, resolution);
 
+
 % plot the waypoints in the part
 waypoints = nodeMatrix(path, 2:3);
 plotWaypoints(waypoints);
-
