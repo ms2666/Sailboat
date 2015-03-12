@@ -41,6 +41,11 @@ for r=1:numNodes
                 (abs(nodeMatrix(r,2) - nodeMatrix(c,2)) == stepSize) || (abs(nodeMatrix(r,2) - nodeMatrix(c,2)) == 2*stepSize))
             adjMatrix(r,c) = calculateWeight(nodeMatrix,r,c);
         end
+%         
+        if ((abs(nodeMatrix(r,3) - nodeMatrix(c,3)) == stepSize) || (abs(nodeMatrix(r,3) - nodeMatrix(c,3)) == 2*stepSize) && ...
+                (abs(nodeMatrix(r,2) - nodeMatrix(c,2)) == stepSize) || (abs(nodeMatrix(r,2) - nodeMatrix(c,2)) == 2*stepSize))
+            adjMatrix(r,c) = calculateWeight(nodeMatrix,r,c);
+        end
     end
 end
 
