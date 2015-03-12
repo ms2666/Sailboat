@@ -11,7 +11,7 @@ Paris = [48.9, 2.3];
 Algiers = [36.8, 3.2];
 
 % resolution is the number of degrees between each node
-resolution = .5;
+resolution = 5;
 
 % bounding box for the atlantic ocean
 bounds = round([-83.2,22.0,0.3,58.8]);
@@ -34,3 +34,5 @@ nodeMatrix = [(1:numNodes)' coordinates];
 waypoints = nodeMatrix(path, 2:3);
 plotWaypoints(waypoints);
 
+
+%% Plot wind vectors

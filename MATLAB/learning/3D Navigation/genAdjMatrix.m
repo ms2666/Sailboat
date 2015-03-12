@@ -5,7 +5,7 @@ function [ adjMatrix ] = genAdjMatrix( nodeMatrix, resolution )
 numNodes = size(nodeMatrix, 1);
 adjMatrix = zeros(numNodes,numNodes);
 % determines angual resolution. 1*resolution means each node only connects to 8 around it 
-stepSize = 8*resolution;
+stepSize = 6*resolution;
 % adjusts tolerance. 1.0 is 0% tolerance, 1.1 is 10%, etc
 tolerance = 1.1;
 
