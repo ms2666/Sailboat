@@ -1,5 +1,8 @@
-function [ path ] = genPath( nodeMatrix, sourceNode, destNode, resolution )
+function [ path ] = genPath( nodeMatrix, points, resolution )
 % adjMat is a sparse matrix, source and destination are nodes (they're just integers)
+
+sourceNode = points(1);
+destNode = points(2);
 
 sparseAdjMat = genAdjMatrix(nodeMatrix, resolution);
 % global x

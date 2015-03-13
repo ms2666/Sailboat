@@ -9,36 +9,28 @@ MexicoCity = [19.4, -99.1];
 Houston = [31.0, -100];
 
 % resolution is the number of degrees between each node
-resolution = 2;
+resolution = 20;
 
 % bounding box for the atlantic ocean
-bounds = round([-100,10,0.3,58.8]);
+bounds = [-100,10,0.3,58.8];
 
 
 %% Calculate shortest path
 % get coordinates of each node
-[coordinates, numNodes] = genCoord3D(bounds, resolution);
-
-% create a matrix: [ node_number, node_lat, node_lon ]
-nodeMatrix = [(1:numNodes)' coordinates];
-
-% check if each node is on land or water
-nodeMatrix = genLandmask(nodeMatrix, numNodes);
+[coordinates, numNodes] = genCoord3D(round(bounds), resolution);
 
 % remove land nodes
-[nodeMatrix, numNodes] = removeLandNodes(nodeMatrix);
+[nodeMatrix, numNodes] = removeLandNodes([(1:numNodes)' coordinates], numNodes);
 
-% fetch closest nodes to the nodes supplied
-[sourceNode, destNode] = closestNodes3D(Houston, London, nodeMatrix);
-
-% calculate shortest path
-[path] = genPath(nodeMatrix, sourceNode, destNode, resolution);
+% calculate shortest path after calculating closest nodes to input cities
+[p1, p2] = closestNodes3D(Houston, London, nodeMatrix);
+[path] = genPath(nodeMatrix, [p1 p2], resolution);
 
 
 %% Plot shortest path
 drawGlobe()
 % show nodes (decreases performance)
-showPoints3D([nodeMatrix(:, 2) nodeMatrix(:, 3)]);
+% showPoints3D([nodeMatrix(:, 2) nodeMatrix(:, 3)]);
 
 % plot the waypoints in the part
 waypoints = nodeMatrix(path, 2:3);

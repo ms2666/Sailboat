@@ -24,7 +24,7 @@ for r=1:numNodes
         % if the nodes are within step sizes of each other, nodes are
         % connected
         if abs(rLat - cLat) <= stepSize*tolerance && abs(rLon - cLon) <= stepSize*tolerance
-            adjMatrix(r, c) = calculateWeight([rLat rLon], r, [cLat cLon], c, nodeMatrix, stepSize, land, rivers);
+            adjMatrix(r, c) = calculateWeight([rLat rLon], [cLat cLon], stepSize, land, rivers);
         end
         
     end

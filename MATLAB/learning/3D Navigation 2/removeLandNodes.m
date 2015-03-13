@@ -1,17 +1,16 @@
-function [ trimmedMatrix, numNodes ] = removeLandNodes(nodeMatrix)
+function [ trimmedMatrix, numNodes ] = removeLandNodes(nodeMatrix, numNodes)
 
-% disp(source)
-% disp(dest)
+% initialize new column in nodeMatrix
+nodeMatrix = [nodeMatrix zeros(numNodes, 1)];
+
+% set 4th column to whether or not the node is on land
+nodeMatrix(:, 4) = landmask(nodeMatrix(:, 2), nodeMatrix(:, 3));
 
 % conditions for keeping a node
-condition1 = (nodeMatrix(:, 4) == 0);
-% condition2 = (nodeMatrix(:, 1) == source);
-% condition3 = (nodeMatrix(:, 1) == dest);
-% combine the conditions
-% target = condition1 | condition2 | condition3;
-target = condition1;
-
+target = (nodeMatrix(:, 4) == 0);
 trimmedMatrix = nodeMatrix(target, :);
+
+% set numNodes to a value
 numNodes = size(trimmedMatrix, 1);
 
 end
