@@ -18,9 +18,9 @@ Custom2 = [-104.1,12.2,45.6,55.2];
 
 %% Inputs to program
 % resolution is the number of degrees between each node
-resolution = 2;
+resolution = 5;
 % bounding box for nodes. smaller = faster
-bounds = Custom2;
+bounds = Custom;
 
 %% Calculate shortest path
 % get coordinates of each node
@@ -30,7 +30,7 @@ bounds = Custom2;
 [nodeMatrix, numNodes] = removeLandNodes([(1:numNodes)' coordinates], numNodes);
 
 % calculate shortest path after calculating closest nodes to input cities
-[p1, p2] = closestNodes3D(Houston, TelAviv, nodeMatrix);
+[p1, p2] = closestNodes3D(Barcelona, TelAviv, nodeMatrix);
 [path] = genPath(nodeMatrix, [p1 p2], resolution);
 
 
