@@ -1,3 +1,3 @@
 # Navigation
 
-Current working version of long-term navigation simulatiom
+Current working version of long-term navigation simulation.
