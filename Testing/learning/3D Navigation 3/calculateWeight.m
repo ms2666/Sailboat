@@ -11,9 +11,12 @@ weight = sqrt(lonDiff^2 + latDiff^2);
 % and p2
 lineLats = [p1Coords(1) p2Coords(1)];
 lineLons = [p1Coords(2) p2Coords(2)];
+
+[x0, y0, ~, ~] = intersections([land.Lat],[land.Lon], lineLats, lineLons);
+intersectCoords = [x0 y0];
 % if the there is an intersection
-if ~isempty(intersections([land.Lat],[land.Lon], lineLats, lineLons))
-    weight = weight*((stepSize+1)^5);
+if ~isempty(intersectCoords)
+    weight = weight*((stepSize+1 + size(intersectCoords, 1))^5);
     
     % checks for rivers (there are no rivers on the ocean)
     if ~isempty(intersections([rivers.Lat],[rivers.Lon], lineLats, lineLons))

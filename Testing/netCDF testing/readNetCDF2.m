@@ -2,21 +2,25 @@
 % streamslice
 
 flowData = readFile('uv20150102rt.nc');
-[x,y] = meshgrid(flowData.lon,flowData.lat);
-x = x';
-y = y';
+[x,y] = meshgrid(flowData.lat,flowData.lon);
+x = double(x);
+y = double(y);
 
 u = flowData.u(:,:,1,1); u(isnan(u)) = 0;
 v = flowData.v(:,:,1,1); v(isnan(v)) = 0;
+magU = 20*u;
+magV = 20*v;
 
-latData = ncread('uv20150102rt.nc', 'lat');
-lonData = ncread('uv20150102rt.nc', 'lon');
+lx = 1000;
+hx = 1400;
+ly = 400;
+hy = 700;
 
-% quiver(x, y, u, v);
+drawGlobe();
+quiverm(x(lx:hx, ly:hy), y(lx:hx, ly:hy), magU(lx:hx, ly:hy), magV(lx:hx, ly:hy), 'r') ;
+pause(3)
+quiverm(x(lx:hx, ly:hy), y(lx:hx, ly:hy), magU(lx:hx, ly:hy), magV(lx:hx, ly:hy), 'k') ;
 
-% streamline(U,V,startx,starty) assumes the arrays X and Y are defined as ...
-%     [X,Y] = meshgrid(1:N,1:M), where [M,N] = size(U).
 
-% streamline(X,Y,U,V,startx,starty) draws streamlines from 2-D vector data U, V.
 
-[vertices, arrowvertices] = streamslice(latData,lonData,u,v);
+
