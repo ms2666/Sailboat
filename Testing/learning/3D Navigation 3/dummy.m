@@ -31,11 +31,21 @@ latInds = latInds(1, :);
 lonInds = logical(y >= bounds(2) & y <= bounds(4));
 lonInds = lonInds(:, 1);
 
+[a, b] = size(x);
+
 % trim x, y, u, and v
-newX = x(latInds, lonInds);
-newY = y(latInds, lonInds);
-newU = u(latInds, lonInds);
-newV = v(latInds, lonInds);
+% newX = x(latInds, lonInds);
+% newY = y(latInds, lonInds);
+% newU = u(latInds, lonInds);
+% newV = v(latInds, lonInds);
+
+c = 2;
+newX = x(1:a/c, 1:b/c);
+newY = y(1:a/c, 1:b/c);
+newU = u(1:a/c, 1:b/c);
+newV = v(1:a/c, 1:b/c);
+
+
 
 % display vector data
 quiverm(newX, newY, newU, newV, 'y');
