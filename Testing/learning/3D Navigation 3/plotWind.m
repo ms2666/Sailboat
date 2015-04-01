@@ -1,45 +1,46 @@
 function [] = plotWind(dataFile, bounds, resolution)
-% plots a quiver plot of wind vectors
+%% Initialization
+% 4 times of day available
+timeFactor = 1;
 
 % round bounds to the resolution specified
 res = 1/resolution;
 bounds = round(bounds*res)/res;
+bounds = [bounds(2), bounds(1), bounds(4), bounds(3)];
+
+% add 360 to latitudes
+bounds = bounds + [0, 360, 0, 360];
 
 
+%% Fetch data from netCDF file
 % read the netCDF file
 flowData = readFile(dataFile);
 % convert latitudes and longitudes to floats
 lats = double(flowData.lat);
 lons = double(flowData.lon);
-% generate a meshgrid of lats and lons
-[x, y] = meshgrid(lats, lons);
 
-% get vector data at 1st time of day
-timeFactor = 1;
+% generate a meshgrid of lats and lons
+[latData, lonData] = meshgrid(lats, lons);
+
+% fetch u and v data and set NAN values to 0
 u = flowData.u(:,:,1,timeFactor); u(isnan(u)) = 0;
 v = flowData.v(:,:,1,timeFactor); v(isnan(v)) = 0;
 
-% as of now, x, y, u and v should have the same dimensions
-latInds = logical(x >= bounds(1) & x <= bounds(3));
-latInds = latInds(1, :)
-lonInds = logical(y >= bounds(2) & y <= bounds(4));
-lonInds = lonInds(:, 1)
 
-% trim x, y, u, and v
-x = x(latInds, lonInds);
-y = y(latInds, lonInds);
-u = u(latInds, lonInds);
-v = v(latInds, lonInds);
+%% Slice data
+ind1 = find(latData>bounds(1) & latData<bounds(3));
+ind2 = find(lonData(ind1)>bounds(2) & lonData(ind1)<bounds(4));
+[I,J] = ind2sub(size(latData),ind1(ind2));
+
+% slice x, y, u and v
+latData = latData(min(I):max(I),min(J):max(J));
+lonData = lonData(min(I):max(I),min(J):max(J));
+u = u(min(I):max(I),min(J):max(J));
+v = v(min(I):max(I),min(J):max(J));
 
 
-% debug crap
-disp(dataFile);
-disp(bounds);
-disp(size(x)); disp(size(y));
-disp(size(u)); disp(size(v));
-
-setVecData(x);
-
+%% Display stuff
 % display vector data
-quiverm(x, y, u, v, 'y');
+quiverm(latData, lonData, u, v, 'y');
+
 end

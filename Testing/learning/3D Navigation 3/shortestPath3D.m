@@ -49,5 +49,5 @@ plotWaypoints(waypoints);
 
 %% Plot wind vectors
 % plots wind data for ONE time of the day
+% latitude goes from 0 to 180, longitude goes from 0 to 360 in data
 plotWind('uv20150102rt.nc', bounds, resolution)
-vecData = getVecData();
