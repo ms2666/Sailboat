@@ -13,12 +13,12 @@ lineLats = [p1Coords(1) p2Coords(1)];
 lineLons = [p1Coords(2) p2Coords(2)];
 % if the there is an intersection
 if ~isempty(intersections([land.Lat],[land.Lon], lineLats, lineLons))
-    weight = weight*((stepSize+1)^5);
+    weight = weight + 10000;
     
-    % checks for rivers (there are no rivers on the ocean)
-    if ~isempty(intersections([rivers.Lat],[rivers.Lon], lineLats, lineLons))
-        weight = weight*((stepSize+1)^5);
-    end
+%     % checks for rivers (there are no rivers on the ocean)
+%     if ~isempty(intersections([rivers.Lat],[rivers.Lon], lineLats, lineLons))
+%         weight = weight*((stepSize+1)^5);
+%     end
 end
 
 end

@@ -20,11 +20,11 @@ Israel2Japan = [-28.3,-39.9,162.0,47.8];
 
 %% Inputs to program
 % resolution is the number of degrees between each node
-resolution = 10;
+resolution = 2;
 % bounding box for nodes. smaller = faster
-bounds = Israel2Japan;
+bounds = Custom2;
 % source and destination cities
-source = TelAviv; dest = Osaka;
+source = Houston; dest = TelAviv;
 
 %% Calculate shortest path
 % get coordinates of each node
@@ -34,8 +34,8 @@ source = TelAviv; dest = Osaka;
 [nodeMatrix, numNodes] = removeLandNodes([(1:numNodes)' coordinates], numNodes);
 
 % calculate shortest path after calculating closest nodes to input cities
-[p1, p2] = closestNodes3D(source, dest, nodeMatrix);
-[path] = genPath(nodeMatrix, [p1 p2], resolution);
+bestFitNodes = knnsearch(nodeMatrix(:, 2:3), [source; dest]);
+[path] = genPath(nodeMatrix, bestFitNodes, resolution);
 
 
 %% Plot shortest path
@@ -51,7 +51,11 @@ plotWaypoints(waypoints);
 %% Plot wind vectors
 
 % 4 times of day available
-timeFactor = 2;
+timeFactor = 0;
 
-% plots wind data for ONE time of the day
-plotWind('uv20150102rt.nc', bounds, resolution, timeFactor)
+while(true)
+    timeFactor = mod(timeFactor, 4) + 1;
+    a = plotWind('uv20150102rt.nc', bounds, resolution, timeFactor);
+    pause(1)
+    delete(a)
+end

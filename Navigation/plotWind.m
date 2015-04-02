@@ -1,4 +1,4 @@
-function [] = plotWind(dataFile, bounds, resolution, timeFactor)
+function [a] = plotWind(dataFile, bounds, resolution, timeFactor)
 %% Initialization
 
 % round bounds to the resolution specified
@@ -51,6 +51,6 @@ v = v(f, e);
 
 %% Display stuff
 % display vector data
-quiverm(latData, lonData, u, v, 'w');
+a = quiverm(latData, lonData, v, u, 'w');
 
 end
