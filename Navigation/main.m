@@ -51,11 +51,12 @@ plotWaypoints(waypoints);
 %% Plot wind vectors
 
 % 4 times of day available
-timeFactor = 0;
-
-while(true)
-    timeFactor = mod(timeFactor, 4) + 1;
-    a = plotWind('uv20150102rt.nc', bounds, resolution, timeFactor);
-    pause(1)
-    delete(a)
+srcFiles = dir('/Volumes/Macintosh Extension/Documents Extension/GitHub/Sailboat/Navigation/Data/*.nc');
+for i = 1:length(srcFiles)
+    for timeFactor = 1:4
+        fileName = strcat('/Volumes/Macintosh Extension/Documents Extension/GitHub/Sailboat/Navigation/Data/', srcFiles(i).name);
+        a = plotWind(fileName, bounds, resolution, timeFactor);
+        pause(1)
+        delete(a)
+    end
 end
