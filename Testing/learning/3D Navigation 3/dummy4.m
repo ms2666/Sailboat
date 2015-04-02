@@ -1,7 +1,7 @@
 %% Initialization
 close all
-resolution = 10;
-bounds = [-104.1,12.2,45.6,55.2];
+resolution = .25;
+bounds = [-83.2,22.0,0.3,58.8];
 timeFactor = 2;
 
 % round bounds to the resolution specified
@@ -33,6 +33,8 @@ v = flowData.v(:,:,1,timeFactor); v(isnan(v)) = 0;
 
 
 %% Slice data
+f = logical(latData >= bounds(1) & latData <= bounds(3));
+g = logical(lonData >= bounds(2) & lonData <= bounds(4));
 ind1 = find(latData>bounds(1) & latData<bounds(3));
 ind2 = find(lonData(ind1)>bounds(2) & lonData(ind1)<bounds(4));
 [I,J] = ind2sub(size(latData),ind1(ind2));
@@ -43,13 +45,15 @@ lonData = lonData(min(I):max(I),min(J):max(J));
 u = u(min(I):max(I),min(J):max(J));
 v = v(min(I):max(I),min(J):max(J));
 
+% remove vectors that aren't on a node 
+f = logical(mod(latData, resolution) == 0); f = f(1, :);
+g = logical(mod(lonData, resolution) == 0); g = g(:, 1);
+
+latData = latData(g, f);
+lonData = lonData(g, f);
+u = u(g, f);
+v = v(g, f);
+
 %% Display stuff
 % display vector data
 quiverm(latData, lonData, u, v, 'w');
-
-a = bounds;
-a = a + [0 360 0 360];
-
-% geoshow (lons, lats)
-% geoshow(a(1), a(2), 'DisplayType','point','markeredgecolor','y','markerfacecolor','r','marker','o')
-geoshow([a(1) a(3)], [a(2) a(4)], 'DisplayType','point','markeredgecolor','y','markerfacecolor',[1 1 0],'marker','o')
