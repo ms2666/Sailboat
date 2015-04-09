@@ -50,7 +50,8 @@ v = v(f, e);
 
 
 %% Display stuff
-% display vector data
+% display vector data. whoever wrote this function is a moron. it flips the
+% u and v data
 a = quiverm(latData, lonData, v, u, 'w');
 
 end

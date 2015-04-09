@@ -20,7 +20,7 @@ Israel2Japan = [-28.3,-39.9,162.0,47.8];
 
 %% Inputs to program
 % resolution is the number of degrees between each node
-resolution = 2;
+resolution = 10;
 % bounding box for nodes. smaller = faster
 bounds = Custom2;
 % source and destination cities
@@ -56,7 +56,7 @@ for i = 1:length(srcFiles)
     for timeFactor = 1:4
         fileName = strcat('/Volumes/Macintosh Extension/Documents Extension/GitHub/Sailboat/Navigation/Data/', srcFiles(i).name);
         a = plotWind(fileName, bounds, resolution, timeFactor);
-        pause(1)
+        pause(.1)
         delete(a)
     end
 end
