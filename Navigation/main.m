@@ -20,11 +20,11 @@ Israel2Japan = [-28.3,-39.9,162.0,47.8];
 
 %% Inputs to program
 % resolution is the number of degrees between each node
-resolution = 10;
+resolution = 5;
 % bounding box for nodes. smaller = faster
-bounds = Custom2;
+bounds = NorthAtlantic;
 % source and destination cities
-source = Houston; dest = TelAviv;
+source = NYC; dest = London;
 
 %% Calculate shortest path
 % get coordinates of each node

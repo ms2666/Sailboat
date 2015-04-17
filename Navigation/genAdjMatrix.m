@@ -17,7 +17,7 @@ for r=1:numNodes
     rLat = nodeMatrix(r, 2);
     rLon = nodeMatrix(r, 3);
     
-    for c=r:numNodes
+    for c=1:numNodes
         cLat = nodeMatrix(c, 2);
         cLon = nodeMatrix(c, 3);
         
