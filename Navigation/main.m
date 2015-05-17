@@ -11,6 +11,8 @@ TelAviv = [32.1, 34.8];
 Barcelona = [41.2, 2.2];
 Osaka = [34.6, 135.5];
 
+LakeMichigan = [44.0, -87.0];
+
 % bounding box for the atlantic ocean
 NorthAtlantic = [-83.2,22.0,0.3,58.8];
 Mediterranean = [-11.4,28.1,45.8,49.9];
@@ -50,13 +52,13 @@ plotWaypoints(waypoints);
 
 %% Plot wind vectors
 
-% 4 times of day available
-srcFiles = dir('/Volumes/Macintosh Extension/Documents Extension/GitHub/Sailboat/Navigation/Data/*.nc');
-for i = 1:length(srcFiles)
-    for timeFactor = 1:4
-        fileName = strcat('/Volumes/Macintosh Extension/Documents Extension/GitHub/Sailboat/Navigation/Data/', srcFiles(i).name);
-        a = plotWind(fileName, bounds, resolution, timeFactor);
-        pause(.1)
-        delete(a)
-    end
-end
+% % 4 times of day available
+% srcFiles = dir('/Volumes/Macintosh Extension/Documents Extension/GitHub/Sailboat/Navigation/Data/*.nc');
+% for i = 1:length(srcFiles)
+%     for timeFactor = 1:4
+%         fileName = strcat('/Volumes/Macintosh Extension/Documents Extension/GitHub/Sailboat/Navigation/Data/', srcFiles(i).name);
+%         a = plotWind(fileName, bounds, resolution, timeFactor);
+%         pause(.1)
+%         delete(a)
+%     end
+% end

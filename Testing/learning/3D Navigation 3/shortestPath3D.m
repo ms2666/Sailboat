@@ -11,6 +11,8 @@ TelAviv = [32.1, 34.8];
 Barcelona = [41.2, 2.2];
 Osaka = [34.6, 135.5];
 
+LakeMichigan = [44.0, -87.0];
+
 % bounding box for the atlantic ocean
 NorthAtlantic = [-83.2,22.0,0.3,58.8];
 Mediterranean = [-11.4,28.1,45.8,49.9];
@@ -20,11 +22,11 @@ Israel2Japan = [-28.3,-39.9,162.0,47.8];
 
 %% Inputs to program
 % resolution is the number of degrees between each node
-resolution = 5;
+resolution = 2;
 % bounding box for nodes. smaller = faster
 bounds = US2Israel;
 % source and destination cities
-source = TelAviv; dest = Houston;
+source = TelAviv; dest = LakeMichigan;
 
 %% Calculate shortest path
 % get coordinates of each node
