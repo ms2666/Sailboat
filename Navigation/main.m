@@ -24,9 +24,9 @@ Israel2Japan = [-28.3,-39.9,162.0,47.8];
 % resolution is the number of degrees between each node
 resolution = 5;
 % bounding box for nodes. smaller = faster
-bounds = Custom;
+bounds = NorthAtlantic;
 % source and destination cities
-source = TelAviv; dest = Houston;
+source = NYC; dest = London;
 
 %% Calculate shortest path
 % get coordinates of each node
@@ -43,7 +43,7 @@ bestFitNodes = knnsearch(nodeMatrix(:, 2:3), [source; dest]);
 %% Plot shortest path
 drawGlobe()
 % show nodes (decreases performance)
-% showPoints3D([nodeMatrix(:, 2) nodeMatrix(:, 3)]);
+showPoints3D([nodeMatrix(:, 2) nodeMatrix(:, 3)]);
 
 % plot the waypoints in the part
 waypoints = nodeMatrix(path, 2:3);
